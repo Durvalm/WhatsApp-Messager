@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_cors import CORS
 
 from apps.settings import db_session, init_db, Base, SECRET_KEY
 from apps.models import User
@@ -8,6 +9,7 @@ from apps.blueprints import blueprints
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+CORS(app)
 
 init_db()
 migrate = Migrate(app, Base)

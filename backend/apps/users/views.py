@@ -5,11 +5,17 @@ from apps.settings import db_session
 
 users_bp = Blueprint("users", __name__, url_prefix="/users")
 
-@users_bp.route("/get", methods=["GET"])
+@users_bp.route("/get_users", methods=["GET"])
 def get_users():
     users = User.query.all()
     user_list = [{'id': user.id, 'name': user.name, 'picture_filename': user.picture_filename} for user in users]
     return jsonify(users=user_list)
+
+@users_bp.route("/get/<int:user_id>", methods=["GET"])
+def get(user_id):
+    user = User.query.filter(User.id == user_id).first()
+    user_dict = user.to_dict()
+    return jsonify(user=user_dict)
 
 
 @users_bp.route("/register", methods=["POST", "GET"])

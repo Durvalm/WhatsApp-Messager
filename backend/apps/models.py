@@ -13,6 +13,9 @@ class User(UserMixin, Base):
 
     chats = relationship("Chat", backref="user", lazy=True)
 
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+
     def __repr__(self):
         return f'<User {self.name!r}>'
     

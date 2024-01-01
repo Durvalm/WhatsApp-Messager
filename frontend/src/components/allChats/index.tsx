@@ -17,7 +17,6 @@ import { ChatsContext } from '../../contexts/ChatsContext'
 
 export function AllChats() {
   const { chats, createChats } = useContext(ChatsContext)
-
   const [showAddChatForm, setShowAddChatForm] = useState(false)
 
   function handleShowAddForm() {
