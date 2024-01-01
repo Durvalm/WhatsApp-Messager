@@ -1,18 +1,17 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from apps.settings import Base
+from flask_login import UserMixin
 
-class User(Base):
+class User(UserMixin, Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
+    email = Column(String(255), unique=True)
+    password = Column(String(255), unique=False)
+    name = Column(String(50), unique=False)
     picture_filename = Column(String(255), unique=True)
+
     chats = relationship("Chat", backref="user", lazy=True)
-
-
-    def __init__(self, name=None, picture_filename=None):
-        self.name = name
-        self.picture_filename = picture_filename
 
     def __repr__(self):
         return f'<User {self.name!r}>'
@@ -23,9 +22,6 @@ class Chat(Base):
     name = Column(String(50), unique=True)
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    def __init__(self, name=None, user_id=None):
-        self.name = name
-        self.user_id = user_id
 
     def __repr__(self):
         return f'<Chat {self.name!r}>'
