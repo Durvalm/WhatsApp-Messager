@@ -1,0 +1,11 @@
+- 
+- CORS connection
+- Database Models
+- Chat creation
+- Chat (Websockets)
+
+
+
+completed:
+- Confirm database setup and connection
+- Search How to upgrade database
