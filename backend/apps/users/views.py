@@ -9,7 +9,8 @@ users_bp = Blueprint("users", __name__, url_prefix="/users")
 def get_users():
     users = User.query.all()
     user_list = [{'id': user.id, 'name': user.name, 'picture_filename': user.picture_filename} for user in users]
-    return jsonify(users=user_list)
+    response = jsonify(users=user_list)
+    return response
 
 @users_bp.route("/get/<int:user_id>", methods=["GET"])
 def get(user_id):
@@ -20,10 +21,17 @@ def get(user_id):
 
 @users_bp.route("/register", methods=["POST", "GET"])
 def register():
-    user = User(email="test@example.com", password="oi", name="Fla", picture_filename="IMG_8314.jpg")
+    data = request.json
+    name = data.get("name")
+    email = data.get("email")
+    password = data.get("password")
+    picture_filename = data.get("picture_filename", "")  
+
+    user = User(name=name, email=email, password=password, picture_filename=picture_filename)  
     db_session.add(user)
     db_session.commit()
-    # return jsonify()
+
+    return jsonify({"message": "User registered successfully"})
 
 @users_bp.route("/login", methods=["GET", "POST"])
 def login():

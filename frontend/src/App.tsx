@@ -1,16 +1,12 @@
-import { AllChats } from './components/allChats'
-import { Chat } from './components/chat'
 import './App.css'
-import { ChatsContextProvider } from './contexts/ChatsContext'
+import { BrowserRouter } from 'react-router-dom'
+import { Router } from './routes'
 
 function App() {
   return (
-    <main className="wrapper">
-      <ChatsContextProvider>
-        <AllChats />
-        <Chat />
-      </ChatsContextProvider>
-    </main>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   )
 }
 

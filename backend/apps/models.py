@@ -9,7 +9,7 @@ class User(UserMixin, Base):
     email = Column(String(255), unique=True)
     password = Column(String(255), unique=False)
     name = Column(String(50), unique=False)
-    picture_filename = Column(String(255), unique=True)
+    picture_filename = Column(String(255), unique=False)
 
     chats = relationship("Chat", backref="user", lazy=True)
 
