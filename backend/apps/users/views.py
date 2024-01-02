@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_user, logout_user
 from apps.models import User
 from apps.settings import db_session
+from app import bcrypt
 
 users_bp = Blueprint("users", __name__, url_prefix="/users")
 
@@ -27,10 +28,12 @@ def register():
     email = data.get("email")
     password = data.get("password")
     file = request.files.get('file')
+
+    hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
     
     try:
         user = User.query.filter(User.email == email).first()
-        user = User(name=name, email=email, password=password, picture_filename=file.filename)  
+        user = User(name=name, email=email, password=hashed_password, picture_filename=file.filename)  
         db_session.add(user)
         db_session.commit()
 
@@ -52,7 +55,7 @@ def login():
     user = User.query.filter(User.email == email).first()
     if user is not None:
         # Check password
-        if user.password == password:
+        if bcrypt.check_password_hash(user.password, password):
             login_user(user)
             return jsonify({"message": "Logged in successfully"}), 200
         else:
