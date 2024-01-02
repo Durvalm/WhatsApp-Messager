@@ -45,14 +45,20 @@ def register():
 
 @users_bp.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        user = User.query.filter_by(
-            username=request.form.get("username")).first()
-        if user.password == request.form.get("password"):
+    data = request.form
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User.query.filter(User.email == email).first()
+    if user is not None:
+        # Check password
+        if user.password == password:
             login_user(user)
-            # return redirect(url_for("home"))
-    # return render_template("login.html")
- 
+            return jsonify({"message": "Logged in successfully"}), 200
+        else:
+            return jsonify({"message": "Password doesn't match"}), 401
+    else:
+        return jsonify({"message": "User not found"}), 401
  
 @users_bp.route("/logout")
 def logout():

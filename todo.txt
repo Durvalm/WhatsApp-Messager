@@ -1,5 +1,9 @@
-- Fix Register frontend function to (if successful) go to login page
 - Create login page and login endoints
 
+- How to return image from backend bavc
 - Search UP how to store "authenticated_user" in React App so we can use User info through the App
 - Search up how to display signup/login page if (!authenticated_user), and display the WhatsAppWeb page if authenticared_user is True
+
+
+Completed
+- Fix Register frontend function to (if successful) go to login page
