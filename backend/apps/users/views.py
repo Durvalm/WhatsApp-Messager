@@ -21,17 +21,27 @@ def get(user_id):
 
 @users_bp.route("/register", methods=["POST", "GET"])
 def register():
-    data = request.json
+    data = request.form
+    
     name = data.get("name")
     email = data.get("email")
     password = data.get("password")
-    picture_filename = data.get("picture_filename", "")  
+    file = request.files.get('file')
+    
+    try:
+        user = User.query.filter(User.email == email).first()
+        user = User(name=name, email=email, password=password, picture_filename=file.filename)  
+        db_session.add(user)
+        db_session.commit()
 
-    user = User(name=name, email=email, password=password, picture_filename=picture_filename)  
-    db_session.add(user)
-    db_session.commit()
+        # Save file in static folder
+        if file:
+            file.save('static/img/' + file.filename)
 
-    return jsonify({"message": "User registered successfully"})
+        return jsonify({"message": "User registered successfully"}), 201
+    except:
+        return jsonify({"message": "User already exists"}), 500
+
 
 @users_bp.route("/login", methods=["GET", "POST"])
 def login():

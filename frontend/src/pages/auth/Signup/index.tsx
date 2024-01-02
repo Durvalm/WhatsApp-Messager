@@ -1,34 +1,66 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { api } from '../../../lib/axios'
-
-interface RegisterFormType {
-  name: string
-  email: string
-  password: string
-  picture_filename: string
-}
+import { useNavigate } from 'react-router-dom'
 
 export function Signup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-  async function createUser(data: RegisterFormType) {
-    const response = await api.post('users/register', data)
-    console.log(response)
+  const navigate = useNavigate()
+
+  // Call API to register New Users
+  async function createUser(formData: FormData) {
+    try {
+      await api.post('users/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      navigate('/login')
+    } catch (error) {
+      console.error('Error during registration')
+    }
   }
 
   const handleSubmit = () => {
     event?.preventDefault()
-    const data = {
-      name,
-      email,
-      password,
-      picture_filename: '',
+
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('password', password)
+    if (selectedFile) {
+      formData.append('file', selectedFile)
     }
 
-    createUser(data)
+    for (const entry of formData.entries()) {
+      console.log(entry)
+    }
+
+    createUser(formData)
+    cleanForm()
   }
+
+  // Helper functions
+  function cleanForm() {
+    setName('')
+    setEmail('')
+    setPassword('')
+    setSelectedFile(null)
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0]
+    setSelectedFile(file)
+  }
+
+  const fileInputRef = React.createRef<HTMLInputElement>()
 
   return (
     <div>
@@ -50,6 +82,12 @@ export function Signup() {
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="file"
+          placeholder="profile picture"
+          ref={fileInputRef}
+          onChange={(e) => handleFileChange(e)}
         />
         <button type="submit">Submit</button>
       </form>
