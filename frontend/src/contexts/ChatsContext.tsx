@@ -1,4 +1,12 @@
-import { ReactNode, createContext, useState } from 'react'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { api } from '../lib/axios'
+import { AuthContext } from './AuthContext'
 
 export interface Messages {
   text: string
@@ -9,9 +17,9 @@ export interface Messages {
 export interface ChatType {
   id: number
   name: string
-  img: string
+  email: string
+  picture_filename: string
   lastMessage?: Messages
-  date: Date
 }
 
 interface SelectedChatType {
@@ -35,6 +43,8 @@ interface ChatsContextProviderProps {
 export const ChatsContext = createContext({} as ChatsContextType)
 
 export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
+  const { authenticatedUser } = useContext(AuthContext)
+
   const [chats, setChats] = useState<ChatType[]>([])
 
   const [selectedChat, setSelectedChat] = useState<SelectedChatType>()
@@ -42,6 +52,19 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   const currentChat = chats.find((chat) => chat.id === selectedChat?.id)
 
   const [messages, setMessages] = useState<Messages[]>([])
+
+  useEffect(() => {
+    async function populateChats() {
+      try {
+        const response = await api.get(`chats/get_all/${authenticatedUser?.id}`)
+        // console.log(response.data)
+        setChats(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    populateChats()
+  }, [authenticatedUser])
 
   function addNewMessage(currentText: string) {
     const newMessage = {

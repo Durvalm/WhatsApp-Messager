@@ -30,9 +30,9 @@ export function AllChats() {
     const newChat = {
       id: chats.length + 1,
       name: chatName,
-      img: 'https://avatars.githubusercontent.com/u/31549323?v=4',
+      email: '',
+      picture_filename: 'https://avatars.githubusercontent.com/u/31549323?v=4',
       lastMessage: undefined,
-      date: new Date(),
     }
     setShowAddChatForm(false)
     createChats(newChat)
@@ -72,9 +72,9 @@ export function AllChats() {
                   key={chat.id}
                   id={chat.id}
                   name={chat.name}
-                  img={chat.img}
+                  email={chat.email}
+                  picture_filename={chat.picture_filename}
                   lastMessage={chat.lastMessage}
-                  date={chat.date}
                 />
               ))
           ) : (

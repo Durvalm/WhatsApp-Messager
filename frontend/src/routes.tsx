@@ -11,9 +11,9 @@ export function Router() {
   const { authenticatedUser } = useContext(AuthContext)
 
   useEffect(() => {
-    if (!authenticatedUser) {
-      // Redirect to login
-      navigate('/login', { replace: true })
+    if (authenticatedUser) {
+      // Redirect to main page if authenticated
+      navigate('/', { replace: true })
     }
   }, [authenticatedUser, navigate])
   return (

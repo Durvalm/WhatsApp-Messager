@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from apps.settings import Base
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(UserMixin, Base):
     __tablename__ = 'users'
@@ -11,21 +12,24 @@ class User(UserMixin, Base):
     name = Column(String(50), unique=False)
     picture_filename = Column(String(255), unique=False)
 
-    chats = relationship("Chat", backref="user", lazy=True)
+    messages_sent = relationship('Message', foreign_keys='Message.sender_id', backref='sender', lazy=True)
+    messages_received = relationship('Message', foreign_keys='Message.receiver_id', backref='receiver', lazy=True)
 
     def to_dict(self):
-        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns if column.name != 'password'}
 
     def __repr__(self):
         return f'<User {self.name!r}>'
     
-class Chat(Base):
-    __tablename__ = 'chats'
+class Message(Base):
+    __tablename__ = 'messages'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    content = Column(String(255), unique=False)
+    sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    receiver_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
 
     def __repr__(self):
-        return f'<Chat {self.name!r}>'
+        return f'<Message {self.id}>'
     

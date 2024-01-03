@@ -17,25 +17,29 @@ export function Chats(chat: ChatType) {
     selectCurrentChat(chat.id)
   }
 
-  const chatDate = chat.lastMessage ? chat.lastMessage.date : chat.date
+  const chatDate = chat.lastMessage ? chat.lastMessage.date : null
   const chatText = chat.lastMessage ? chat.lastMessage.text : ''
 
   return (
     <Section>
       <Chat onClick={handleChatClick} isSelected={chat.id === selectedChat?.id}>
         <ChatIcon>
-          <img src={chat.img} alt="Profile Picture"></img>
+          <img
+            src={`http://127.0.0.1:5000/users/get_picture/${chat.id}`}
+            alt="Profile Picture"
+          ></img>
         </ChatIcon>
         <ChatInfo>
           <ChatName>
             <span>{chat.name}</span>
-            <span className="time">
+            {/* Used to display last message time */}
+            {/* <span className="time">
               {isToday(chatDate) // Check if the date is today
                 ? format(chatDate, 'HH:mm') // Display hour if today
                 : isThisWeek(chatDate) // Check if the date is within the current week
                   ? format(chatDate, 'iii') // Display weekday if this week
                   : format(chatDate, 'yyyy-MM-dd')}
-            </span>
+            </span> */}
           </ChatName>
           <ChatMessage>
             <span>{chatText}</span>
