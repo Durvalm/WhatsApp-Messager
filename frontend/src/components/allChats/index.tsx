@@ -14,8 +14,11 @@ import {
 } from './styles'
 import { AddChatForm } from './AddChatForm'
 import { ChatsContext } from '../../contexts/ChatsContext'
+import { AuthContext } from '../../contexts/AuthContext'
+import defaultPicture from '../../assets/defaultPicture.png'
 
 export function AllChats() {
+  const { authenticatedUser } = useContext(AuthContext)
   const { chats, createChats } = useContext(ChatsContext)
   const [showAddChatForm, setShowAddChatForm] = useState(false)
 
@@ -41,8 +44,11 @@ export function AllChats() {
           <Header>
             <Profile>
               <img
-                src="https://avatars.githubusercontent.com/u/89949017?v=4"
-                alt="Profile Picture"
+                src={`http://127.0.0.1:5000/users/get_picture/${authenticatedUser?.id}`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = defaultPicture
+                }}
               ></img>
             </Profile>
             <FuncIcons>

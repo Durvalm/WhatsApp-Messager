@@ -25,18 +25,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     setAuthenticatedUser(userData)
   }
 
-  //   useEffect(() => {
-  //     async function fetchAuthenticatedUser() {
-  //       try {
-  //         const response = await axios.get('users/current_user')
-  //         const user = response.data
-  //         setAuthenticatedUser(user)
-  //       } catch (error) {
-  //         setAuthenticatedUser(null)
-  //       }
-  //     }
-  //     fetchAuthenticatedUser()
-  //   }, [])
   return (
     <AuthContext.Provider
       value={{ authenticatedUser, createAuthenticatedUser }}

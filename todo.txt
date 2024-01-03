@@ -1,6 +1,4 @@
--  how to store "authenticated_user" in React App to use info through the App / redirect to login page if not authenticated
-
-- How to return image from backend static folder to frontend
+- How to return image from backend static folder to frontend | Where to store
 
 - Search up how to display signup/login page if (!authenticated_user), and display the WhatsAppWeb page if authenticared_user is True
 
@@ -9,3 +7,4 @@ Completed
 - Fix Register frontend function to (if successful) go to login page
 - Create login page and login endoints
 - Password hashing
+-  how to store "authenticated_user" in React App to use info through the App / redirect to login page if not authenticated

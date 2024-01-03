@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, send_from_directory
 from flask_login import login_user, logout_user
 from apps.models import User
 from apps.settings import db_session
@@ -72,3 +72,9 @@ def login():
 @users_bp.route("/logout")
 def logout():
     logout_user()
+
+
+@users_bp.route("/get_picture/<int:user_id>", methods=["GET"])
+def get_user_picture(user_id):
+    user = User.query.filter(User.id == user_id).first()
+    return send_from_directory("static/img/", user.picture_filename)
