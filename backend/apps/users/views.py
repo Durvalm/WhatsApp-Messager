@@ -57,7 +57,13 @@ def login():
         # Check password
         if bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return jsonify({"message": "Logged in successfully"}), 200
+            user_data = {
+                "id": user.id,
+                "name": user.name,
+                "email": user.email,
+                "picture_filename": user.picture_filename
+            }
+            return jsonify({"message": "Logged in successfully", "user": user_data}), 200
         else:
             return jsonify({"message": "Password doesn't match"}), 401
     else:
@@ -66,4 +72,3 @@ def login():
 @users_bp.route("/logout")
 def logout():
     logout_user()
-    # return redirect(url_for("home"))

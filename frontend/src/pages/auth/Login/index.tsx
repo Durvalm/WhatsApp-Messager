@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { api } from '../../../lib/axios'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../../contexts/AuthContext'
 
 export function Login() {
+  const { createAuthenticatedUser } = useContext(AuthContext)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,6 +14,7 @@ export function Login() {
   async function login(formData: FormData) {
     try {
       const response = await api.post('users/login', formData)
+      createAuthenticatedUser(response.data.user)
       navigate('/')
     } catch (error) {
       console.error(error)
