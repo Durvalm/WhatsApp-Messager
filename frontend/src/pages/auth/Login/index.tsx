@@ -15,6 +15,10 @@ export function Login() {
     try {
       const response = await api.post('users/login', formData)
       createAuthenticatedUser(response.data.user)
+      localStorage.setItem(
+        'authenticatedUser',
+        JSON.stringify(response.data.user),
+      )
       navigate('/')
     } catch (error) {
       console.error(error)

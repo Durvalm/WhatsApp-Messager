@@ -51,8 +51,7 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   const currentChat = chats.find((chat) => chat.id === selectedChat?.id)
   const [messages, setMessages] = useState<Messages[]>([])
 
-  // When users log in, this will populate the chats by retrieving
-  // all chats users has had
+  // When users log in, this will populate the chats
   useEffect(() => {
     async function fetchPopulateChats() {
       try {

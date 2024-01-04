@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 interface User {
   id: string
@@ -20,6 +20,17 @@ export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [authenticatedUser, setAuthenticatedUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const storedAuthenticatedUserString =
+      localStorage.getItem('authenticatedUser')
+
+    const storedAuthenticatedUser = storedAuthenticatedUserString
+      ? JSON.parse(storedAuthenticatedUserString)
+      : null
+
+    setAuthenticatedUser(storedAuthenticatedUser)
+  }, [])
 
   function createAuthenticatedUser(userData: User) {
     setAuthenticatedUser(userData)
