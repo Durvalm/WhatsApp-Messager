@@ -1,0 +1,54 @@
+"filename", "language", "Python", "pip requirements", "Ini", "JSON with Comments", "JSON", "TypeScript", "TypeScript JSX", "XML", "CSS", "HTML", "Markdown", "comment", "blank", "total"
+"/Users/Durval/Developer/Whatsapp/backend/app.py", "Python", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 40
+"/Users/Durval/Developer/Whatsapp/backend/apps/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/Durval/Developer/Whatsapp/backend/apps/blueprints.py", "Python", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"/Users/Durval/Developer/Whatsapp/backend/apps/chats/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/Durval/Developer/Whatsapp/backend/apps/chats/views.py", "Python", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 27
+"/Users/Durval/Developer/Whatsapp/backend/apps/models.py", "Python", 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 36
+"/Users/Durval/Developer/Whatsapp/backend/apps/settings.py", "Python", 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 20
+"/Users/Durval/Developer/Whatsapp/backend/apps/users/__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/Durval/Developer/Whatsapp/backend/apps/users/views.py", "Python", 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 16, 80
+"/Users/Durval/Developer/Whatsapp/backend/migrations/alembic.ini", "Ini", 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 51
+"/Users/Durval/Developer/Whatsapp/backend/migrations/env.py", "Python", 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 26, 114
+"/Users/Durval/Developer/Whatsapp/backend/migrations/versions/9f23845ac1aa_usermixin.py", "Python", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 9, 39
+"/Users/Durval/Developer/Whatsapp/backend/migrations/versions/ada98668fd3d_message_table.py", "Python", 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 9, 51
+"/Users/Durval/Developer/Whatsapp/backend/migrations/versions/e6783b73712a_message_tablename_fix.py", "Python", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 6, 38
+"/Users/Durval/Developer/Whatsapp/backend/migrations/versions/f088ea4beb6f_picture_filename_not_unique.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 9, 33
+"/Users/Durval/Developer/Whatsapp/backend/migrations/versions/f734752f6760_initial_migration.py", "Python", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 9, 42
+"/Users/Durval/Developer/Whatsapp/backend/requirements.txt", "pip requirements", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"/Users/Durval/Developer/Whatsapp/frontend/.eslintrc.json", "JSON with Comments", 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3
+"/Users/Durval/Developer/Whatsapp/frontend/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 9, 28
+"/Users/Durval/Developer/Whatsapp/frontend/index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 1, 14
+"/Users/Durval/Developer/Whatsapp/frontend/package-lock.json", "JSON", 0, 0, 0, 0, 12149, 0, 0, 0, 0, 0, 0, 0, 1, 12150
+"/Users/Durval/Developer/Whatsapp/frontend/package.json", "JSON", 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 1, 32
+"/Users/Durval/Developer/Whatsapp/frontend/public/vite.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/Users/Durval/Developer/Whatsapp/frontend/public/whatsapp-logo.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 1, 0, 22
+"/Users/Durval/Developer/Whatsapp/frontend/src/App.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 5, 19
+"/Users/Durval/Developer/Whatsapp/frontend/src/App.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/AddChatForm/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 2, 7, 49
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/AddChatForm/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 9, 54
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/Chats/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 8, 5, 52
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/Chats/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 9, 52
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/Search/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 2, 17
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/Search/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 6, 41
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 88, 0, 0, 0, 0, 0, 4, 92
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/allChats/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 11, 72
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/chat/EmptyChatContainer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/chat/EmptyChatStyles.ts", "TypeScript", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 6, 27
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/chat/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 10, 104
+"/Users/Durval/Developer/Whatsapp/frontend/src/components/chat/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 109, 0, 0, 0, 0, 0, 0, 22, 131
+"/Users/Durval/Developer/Whatsapp/frontend/src/contexts/AuthContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 8, 36
+"/Users/Durval/Developer/Whatsapp/frontend/src/contexts/ChatsContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 1, 17, 109
+"/Users/Durval/Developer/Whatsapp/frontend/src/lib/axios.ts", "TypeScript", 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 2, 6
+"/Users/Durval/Developer/Whatsapp/frontend/src/main.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 1, 2, 11
+"/Users/Durval/Developer/Whatsapp/frontend/src/pages/Whatsapp/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 2, 15
+"/Users/Durval/Developer/Whatsapp/frontend/src/pages/auth/Login/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 10, 55
+"/Users/Durval/Developer/Whatsapp/frontend/src/pages/auth/Login/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/Durval/Developer/Whatsapp/frontend/src/pages/auth/Signup/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 2, 13, 97
+"/Users/Durval/Developer/Whatsapp/frontend/src/pages/auth/Signup/styles.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/Durval/Developer/Whatsapp/frontend/src/routes.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 1, 4, 32
+"/Users/Durval/Developer/Whatsapp/frontend/src/vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/Users/Durval/Developer/Whatsapp/frontend/tsconfig.json", "JSON with Comments", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 2, 3, 26
+"/Users/Durval/Developer/Whatsapp/frontend/tsconfig.node.json", "JSON", 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"/Users/Durval/Developer/Whatsapp/frontend/vite.config.ts", "TypeScript", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 1, 2, 8
+"Total", "-", 312, 22, 38, 24, 12190, 323, 598, 22, 14, 13, 19, 120, 313, 14008

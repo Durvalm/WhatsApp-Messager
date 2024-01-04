@@ -31,10 +31,3 @@ def shutdown_session(exception=None):
 @login_manager.user_loader
 def loader_user(user_id):
     return User.query.get(user_id)
-
-@app.route("/")
-def hello_world():
-    # user = User.query.filter(User.name == "Durval").first()
-
-    return "<h1>Hello World</h1>"
-    # return f"<img src={url_for('static', filename=f'img/{user.picture_filename}')} />"

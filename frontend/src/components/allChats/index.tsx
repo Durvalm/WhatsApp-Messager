@@ -26,6 +26,7 @@ export function AllChats() {
     showAddChatForm ? setShowAddChatForm(false) : setShowAddChatForm(true)
   }
 
+  // Create Chat function
   const addChat = (chatName: string) => {
     const newChat = {
       id: chats.length + 1,

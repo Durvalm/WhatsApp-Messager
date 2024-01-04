@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from ..models import User, Message
 from ..settings import db_session
 
@@ -24,3 +24,32 @@ def get_chats_for_user(user_id):
     return jsonify([user.to_dict() for user in users])
     
 
+@chats_bp.route("/get_messages/<int:sender_id>/<int:receiver_id>")
+def get_messages_for_chat(sender_id, receiver_id):
+    """Queries messages that have been sent with a specific sender and receiver, creating a chat"""
+
+    chats_query = (
+        db_session.query(Message.id, Message.content, Message.sender_id, Message.receiver_id, Message.timestamp)
+        .filter(
+            or_(
+                and_(Message.sender_id == sender_id, Message.receiver_id == receiver_id),
+                and_(Message.sender_id == receiver_id, Message.receiver_id == sender_id)
+            )   
+        )
+        .order_by(Message.timestamp)
+    )
+
+    message_dict_array = []
+    for row in chats_query:
+        message = {
+            "id": row.id,
+            "sender_id": row.sender_id,
+            "receiver_id" : row.receiver_id,
+            "content": row.content,
+            "timestamp": row.timestamp
+        }
+        message_dict_array.append(message)
+
+        
+
+    return jsonify(message_dict_array)

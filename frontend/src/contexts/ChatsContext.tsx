@@ -9,9 +9,11 @@ import { api } from '../lib/axios'
 import { AuthContext } from './AuthContext'
 
 export interface Messages {
-  text: string
-  chatId: number
-  date: Date
+  id: string
+  content: string
+  sender_id: string
+  receiver_id: string
+  timestamp: Date
 }
 
 export interface ChatType {
@@ -46,15 +48,14 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   const { authenticatedUser } = useContext(AuthContext)
 
   const [chats, setChats] = useState<ChatType[]>([])
-
   const [selectedChat, setSelectedChat] = useState<SelectedChatType>()
-
   const currentChat = chats.find((chat) => chat.id === selectedChat?.id)
-
   const [messages, setMessages] = useState<Messages[]>([])
 
+  // When users log in, this will populate the chats by retrieving
+  // all chats users has had
   useEffect(() => {
-    async function populateChats() {
+    async function fetchPopulateChats() {
       try {
         const response = await api.get(`chats/get_all/${authenticatedUser?.id}`)
         // console.log(response.data)
@@ -63,10 +64,25 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
         console.log(error)
       }
     }
-    populateChats()
+    fetchPopulateChats()
   }, [authenticatedUser])
 
+  // Set Messages for every Chat as soon as Chat is clicked (selectedChat is changed)
+  useEffect(() => {
+    if (!selectedChat) return
+    async function fetchPopulateMessagesForChat() {
+      const response = await api.get(
+        `chats/get_messages/${authenticatedUser?.id}/${selectedChat?.id}`,
+      )
+      setMessages(response.data)
+      console.log(response.data)
+    }
+
+    fetchPopulateMessagesForChat()
+  }, [selectedChat, authenticatedUser])
+
   function addNewMessage(currentText: string) {
+    console.log('New Message')
     const newMessage = {
       text: currentText,
       chatId: currentChat?.id || 0,

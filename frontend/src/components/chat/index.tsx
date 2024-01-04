@@ -38,7 +38,10 @@ export function Chat() {
     <Section>
       <Header>
         <ContactInfo>
-          <img src={currentChat.img} alt="profile picture"></img>
+          <img
+            src={`http://127.0.0.1:5000/users/get_picture/${currentChat.id}`}
+            alt="profile picture"
+          ></img>
           <p>{currentChat.name}</p>
         </ContactInfo>
         <Icons>
@@ -50,30 +53,26 @@ export function Chat() {
       <Content>
         <div>
           {messages.map((message, index) => {
-            if (message.chatId === currentChat.id) {
-              return (
-                <MessagesContainer
-                  key={message.date.toISOString()}
-                  messageIndex={index}
-                >
-                  <Text messageIndex={index}>
-                    <p>{message.text}</p>
-                    <MessageInfo>
-                      <time>
-                        {message.date.toLocaleTimeString('en-US', {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true,
-                        })}
-                      </time>
-                      <ViewSymbol />
-                    </MessageInfo>
-                  </Text>
-                </MessagesContainer>
-              )
-            } else {
-              return null
-            }
+            return (
+              <MessagesContainer
+                key={new Date(message.timestamp).toISOString()}
+                messageIndex={index}
+              >
+                <Text messageIndex={index}>
+                  <p>{message.content}</p>
+                  <MessageInfo>
+                    <time>
+                      {new Date(message.timestamp).toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true,
+                      })}
+                    </time>
+                    <ViewSymbol />
+                  </MessageInfo>
+                </Text>
+              </MessagesContainer>
+            )
           })}
         </div>
 

@@ -17,8 +17,8 @@ export function Chats(chat: ChatType) {
     selectCurrentChat(chat.id)
   }
 
-  const chatDate = chat.lastMessage ? chat.lastMessage.date : null
-  const chatText = chat.lastMessage ? chat.lastMessage.text : ''
+  // const chatDate = chat.lastMessage ? chat.lastMessage.date : null
+  const chatText = chat.lastMessage ? chat.lastMessage.content : ''
 
   return (
     <Section>

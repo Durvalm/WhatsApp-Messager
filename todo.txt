@@ -4,7 +4,10 @@ To do
   -> So when User is logged in, All Chats come up/Profile picture, etc
 
 - Signup/Login Design
+
 - Create Chats based on current Users
+
+- Display messages based on sender/receiver
 
 Completed
 - Fix Register frontend function to (if successful) go to login page
