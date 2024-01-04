@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Chats } from './Chats'
 import { Search } from './Search'
 import {
@@ -29,7 +29,7 @@ export function AllChats() {
   // Create Chat function
   const addChat = (chatName: string) => {
     const newChat = {
-      id: chats.length + 1,
+      id: String(chats.length + 1),
       name: chatName,
       email: '',
       picture_filename: 'https://avatars.githubusercontent.com/u/31549323?v=4',

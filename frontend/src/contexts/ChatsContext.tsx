@@ -9,15 +9,14 @@ import { api } from '../lib/axios'
 import { AuthContext } from './AuthContext'
 
 export interface Messages {
-  id: string
   content: string
-  sender_id: string
-  receiver_id: string
+  sender_id?: string
+  receiver_id?: string
   timestamp: Date
 }
 
 export interface ChatType {
-  id: number
+  id: string
   name: string
   email: string
   picture_filename: string
@@ -25,7 +24,7 @@ export interface ChatType {
 }
 
 interface SelectedChatType {
-  id: number
+  id: string
 }
 
 interface ChatsContextType {
@@ -34,7 +33,7 @@ interface ChatsContextType {
   messages: Messages[]
   currentChat?: ChatType
   createChats: (newChat: ChatType) => void
-  selectCurrentChat: (chatId: number) => void
+  selectCurrentChat: (chatId: string) => void
   addNewMessage: (currentText: string) => void
 }
 
@@ -75,18 +74,18 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
         `chats/get_messages/${authenticatedUser?.id}/${selectedChat?.id}`,
       )
       setMessages(response.data)
-      console.log(response.data)
+      console.log(response)
     }
 
     fetchPopulateMessagesForChat()
   }, [selectedChat, authenticatedUser])
 
   function addNewMessage(currentText: string) {
-    console.log('New Message')
     const newMessage = {
-      text: currentText,
-      chatId: currentChat?.id || 0,
-      date: new Date(),
+      content: currentText,
+      sender_id: authenticatedUser?.id,
+      receiver_id: selectedChat?.id,
+      timestamp: new Date(),
     }
     setMessages((state) => [...state, newMessage])
     setChats((state) =>
@@ -102,7 +101,7 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
     setChats((state) => [...state, newChat])
   }
 
-  function selectCurrentChat(chatId: number) {
+  function selectCurrentChat(chatId: string) {
     setSelectedChat({ id: chatId })
   }
 

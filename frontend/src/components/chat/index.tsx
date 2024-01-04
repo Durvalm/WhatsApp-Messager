@@ -20,9 +20,11 @@ import { MdSend } from 'react-icons/md'
 
 import { ChatsContext } from '../../contexts/ChatsContext'
 import { EmptyChatContainer } from './EmptyChatContainer'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export function Chat() {
   const { currentChat, messages, addNewMessage } = useContext(ChatsContext)
+  const { authenticatedUser } = useContext(AuthContext)
 
   const [currentText, setCurrentText] = useState('')
 
@@ -34,6 +36,7 @@ export function Chat() {
   if (!currentChat?.name) {
     return <EmptyChatContainer />
   }
+
   return (
     <Section>
       <Header>
@@ -52,13 +55,13 @@ export function Chat() {
 
       <Content>
         <div>
-          {messages.map((message, index) => {
+          {messages.map((message) => {
             return (
               <MessagesContainer
                 key={new Date(message.timestamp).toISOString()}
-                messageIndex={index}
+                isSender={message.sender_id === authenticatedUser?.id}
               >
-                <Text messageIndex={index}>
+                <Text isSender={message.sender_id === authenticatedUser?.id}>
                   <p>{message.content}</p>
                   <MessageInfo>
                     <time>

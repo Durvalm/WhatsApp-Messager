@@ -90,17 +90,14 @@ export const Input = styled.div`
   }
 `
 
-export const MessagesContainer = styled.div<{ messageIndex: number }>`
-  padding: 0.1rem 4rem;
+export const MessagesContainer = styled.div<{ isSender: boolean }>`
+  padding: 0.15rem 4rem;
   display: flex;
-
-  justify-content: ${(props) =>
-    props.messageIndex % 2 === 0 ? 'end' : 'start'};
+  justify-content: ${(props) => (props.isSender ? 'end' : 'start')};
 `
 
-export const Text = styled.div<{ messageIndex: number }>`
-  background-color: ${(props) =>
-    props.messageIndex % 2 === 0 ? '#e7fce3' : 'white'};
+export const Text = styled.div<{ isSender: boolean }>`
+  background-color: ${(props) => (props.isSender ? '#e7fce3' : 'white')};
   color: #111b21;
   border: 1px solid transparent;
   border-radius: 4px;
