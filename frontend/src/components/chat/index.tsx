@@ -18,7 +18,7 @@ import { AiOutlineSearch, AiOutlineMore, AiOutlinePlus } from 'react-icons/ai'
 import { BsEmojiSmile, BsMicFill } from 'react-icons/bs'
 import { MdSend } from 'react-icons/md'
 
-import { ChatsContext } from '../../contexts/ChatsContext'
+import { ChatsContext } from '../../contexts/chatContextTypes'
 import { EmptyChatContainer } from './EmptyChatContainer'
 import { AuthContext } from '../../contexts/AuthContext'
 
@@ -59,9 +59,17 @@ export function Chat() {
             return (
               <MessagesContainer
                 key={new Date(message.timestamp).toISOString()}
-                isSender={message.sender_id === authenticatedUser?.id}
+                is_sender={
+                  message.sender_id === authenticatedUser?.id ? 'true' : 'false'
+                }
               >
-                <Text isSender={message.sender_id === authenticatedUser?.id}>
+                <Text
+                  is_sender={
+                    message.sender_id === authenticatedUser?.id
+                      ? 'true'
+                      : 'false'
+                  }
+                >
                   <p>{message.content}</p>
                   <MessageInfo>
                     <time>

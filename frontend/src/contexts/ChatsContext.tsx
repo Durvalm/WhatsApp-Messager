@@ -1,47 +1,13 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { api } from '../lib/axios'
 import { AuthContext } from './AuthContext'
-
-export interface Messages {
-  content: string
-  sender_id?: string
-  receiver_id?: string
-  timestamp: Date
-}
-
-export interface ChatType {
-  id: string
-  name: string
-  email: string
-  picture_filename: string
-  lastMessage?: Messages
-}
-
-interface SelectedChatType {
-  id: string
-}
-
-interface ChatsContextType {
-  chats: ChatType[]
-  selectedChat?: SelectedChatType
-  messages: Messages[]
-  currentChat?: ChatType
-  createChats: (newChat: ChatType) => void
-  selectCurrentChat: (chatId: string) => void
-  addNewMessage: (currentText: string) => void
-}
-
-interface ChatsContextProviderProps {
-  children: ReactNode
-}
-
-export const ChatsContext = createContext({} as ChatsContextType)
+import {
+  ChatType,
+  ChatsContext,
+  ChatsContextProviderProps,
+  Messages,
+  SelectedChatType,
+} from './chatContextTypes'
 
 export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   const { authenticatedUser } = useContext(AuthContext)
@@ -56,7 +22,6 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
     async function fetchPopulateChats() {
       try {
         const response = await api.get(`chats/get_all/${authenticatedUser?.id}`)
-        // console.log(response.data)
         setChats(response.data)
       } catch (error) {
         console.log(error)
@@ -73,7 +38,6 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
         `chats/get_messages/${authenticatedUser?.id}/${selectedChat?.id}`,
       )
       setMessages(response.data)
-      console.log(response)
     }
 
     fetchPopulateMessagesForChat()
@@ -87,13 +51,6 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
       timestamp: new Date(),
     }
     setMessages((state) => [...state, newMessage])
-    setChats((state) =>
-      state.map((chat) =>
-        chat.id === currentChat?.id
-          ? { ...chat, lastMessage: newMessage }
-          : chat,
-      ),
-    )
   }
 
   function createChats(newChat: ChatType) {

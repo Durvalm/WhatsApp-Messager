@@ -13,7 +13,7 @@ import {
   EmptyListContainer,
 } from './styles'
 import { AddChatForm } from './AddChatForm'
-import { ChatsContext } from '../../contexts/ChatsContext'
+import { ChatsContext } from '../../contexts/chatContextTypes'
 import { AuthContext } from '../../contexts/AuthContext'
 import defaultPicture from '../../assets/defaultPicture.png'
 

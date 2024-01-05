@@ -1,5 +1,5 @@
 import { format, isThisWeek, isToday } from 'date-fns'
-import { ChatType, ChatsContext } from '../../../contexts/ChatsContext'
+import { ChatType, ChatsContext } from '../../../contexts/chatContextTypes'
 import {
   Section,
   Chat,
@@ -22,7 +22,10 @@ export function Chats(chat: ChatType) {
 
   return (
     <Section>
-      <Chat onClick={handleChatClick} isSelected={chat.id === selectedChat?.id}>
+      <Chat
+        onClick={handleChatClick}
+        is_selected={chat.id === selectedChat?.id ? 'true' : 'false'}
+      >
         <ChatIcon>
           <img
             src={`http://127.0.0.1:5000/users/get_picture/${chat.id}`}

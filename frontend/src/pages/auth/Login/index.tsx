@@ -2,6 +2,8 @@ import { useContext, useState } from 'react'
 import { api } from '../../../lib/axios'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
+import { Form, FormContainer, Section } from '../components/styles'
+import { Header } from '../components/Header'
 
 export function Login() {
   const { createAuthenticatedUser } = useContext(AuthContext)
@@ -39,20 +41,35 @@ export function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <button type="submit">Button</button>
-    </form>
+    <Section>
+      <Header />
+
+      <FormContainer>
+        <h2>Login</h2>
+        <Form>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            <button type="submit">Login</button>
+          </form>
+        </Form>
+        <div>
+          <small>Don&apos;t have an account yet?</small>
+          <span>
+            <a href="signup">Sign up</a>
+          </span>
+        </div>
+      </FormContainer>
+    </Section>
   )
 }

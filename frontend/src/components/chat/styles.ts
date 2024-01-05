@@ -90,14 +90,15 @@ export const Input = styled.div`
   }
 `
 
-export const MessagesContainer = styled.div<{ isSender: boolean }>`
+export const MessagesContainer = styled.div<{ is_sender: string }>`
   padding: 0.15rem 4rem;
   display: flex;
-  justify-content: ${(props) => (props.isSender ? 'end' : 'start')};
+  justify-content: ${(props) => (props.is_sender === 'true' ? 'end' : 'start')};
 `
 
-export const Text = styled.div<{ isSender: boolean }>`
-  background-color: ${(props) => (props.isSender ? '#e7fce3' : 'white')};
+export const Text = styled.div<{ is_sender: string }>`
+  background-color: ${(props) =>
+    props.is_sender === 'true' ? '#e7fce3' : 'white'};
   color: #111b21;
   border: 1px solid transparent;
   border-radius: 4px;

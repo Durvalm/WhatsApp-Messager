@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { api } from '../../../lib/axios'
 import { useNavigate } from 'react-router-dom'
+import { Form, FormContainer, Section } from '../components/styles'
+import { Header } from '../components/Header'
 
 export function Signup() {
   const [name, setName] = useState('')
@@ -35,10 +37,6 @@ export function Signup() {
       formData.append('file', selectedFile)
     }
 
-    for (const entry of formData.entries()) {
-      console.log(entry)
-    }
-
     createUser(formData)
     cleanForm()
   }
@@ -63,34 +61,46 @@ export function Signup() {
   const fileInputRef = React.createRef<HTMLInputElement>()
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="name"
-          placeholder="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="file"
-          placeholder="profile picture"
-          ref={fileInputRef}
-          onChange={(e) => handleFileChange(e)}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <Section>
+      <Header />
+      <FormContainer>
+        <h2>Register</h2>
+        <Form>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="name"
+              placeholder="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="file"
+              placeholder="profile picture"
+              ref={fileInputRef}
+              onChange={(e) => handleFileChange(e)}
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </Form>
+        <div>
+          <small>Already have an account?</small>
+          <span>
+            <a href="login">Login</a>
+          </span>
+        </div>
+      </FormContainer>
+    </Section>
   )
 }

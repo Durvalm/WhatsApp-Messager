@@ -12,10 +12,10 @@ export function Router() {
 
   useEffect(() => {
     if (authenticatedUser) {
-      // Redirect to main page if authenticated
       navigate('/', { replace: true })
     }
   }, [authenticatedUser, navigate])
+
   return (
     <Routes>
       <Route
