@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
-from sqlalchemy import or_, and_
+from sqlalchemy import or_, and_, not_
+from sqlalchemy.orm import aliased
 from ..models import User, Message
 from ..settings import db_session
 from datetime import datetime
@@ -23,7 +24,6 @@ def get_chats_for_user(user_id):
     users = User.query.filter(User.id.in_(user_ids)).all()
 
     return jsonify([user.to_dict() for user in users])
-    
 
 @chats_bp.route("/get_messages/<int:sender_id>/<int:receiver_id>", methods=["GET"])
 def get_messages_for_chat(sender_id, receiver_id):

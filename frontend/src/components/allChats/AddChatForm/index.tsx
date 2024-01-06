@@ -17,17 +17,17 @@ interface AddChatFormProps {
 }
 
 export function AddChatForm({ handleShowAddForm }: AddChatFormProps) {
-  const { createChats } = useContext(ChatsContext)
+  const { createChats, chats } = useContext(ChatsContext)
   const { authenticatedUser } = useContext(AuthContext)
 
-  const [chats, setChats] = useState<ChatType[]>([])
-  const [selectedChat, setSelectedChat] = useState<ChatType>()
+  const [listChats, setListChats] = useState<ChatType[]>([])
+  const [selectedListChat, setSelectedListChat] = useState<ChatType>()
 
   useEffect(() => {
     async function fetchUsers() {
       try {
         const response = await api.get('http://127.0.0.1:5000/users/get_users')
-        setChats(response.data.users)
+        setListChats(response.data.users)
       } catch (error) {
         console.log(error)
       }
@@ -37,17 +37,20 @@ export function AddChatForm({ handleShowAddForm }: AddChatFormProps) {
 
   // Add chat with person name
   const handleSubmit = () => {
-    async function createNewChat() {
+    async function postNewChat() {
       await api.post(
-        `http://127.0.0.1:5000/chats/create_chat/${authenticatedUser?.id}/${selectedChat?.id}`,
+        `http://127.0.0.1:5000/chats/create_chat/${authenticatedUser?.id}/${selectedListChat?.id}`,
       )
     }
+    const chatAlreadyExists = chats.find(
+      (chat) => chat.id === selectedListChat?.id,
+    )
 
-    if (selectedChat) {
+    if (!chatAlreadyExists && selectedListChat) {
       try {
-        createNewChat()
+        postNewChat()
         handleShowAddForm()
-        createChats(selectedChat)
+        createChats(selectedListChat)
       } catch (error) {
         console.log(error)
       }
@@ -74,7 +77,8 @@ export function AddChatForm({ handleShowAddForm }: AddChatFormProps) {
             <input
               type="text"
               placeholder="Choose from the list"
-              value={selectedChat?.name}
+              value={selectedListChat ? selectedListChat.name : ''}
+              readOnly
             ></input>
             <button type="submit">
               <AiOutlineArrowRight size={24} />
@@ -84,9 +88,12 @@ export function AddChatForm({ handleShowAddForm }: AddChatFormProps) {
       </div>
 
       <List>
-        {chats.map((chat: ChatType) => {
+        {listChats.map((chat: ChatType) => {
           return (
-            <ContactList key={chat.id} onClick={() => setSelectedChat(chat)}>
+            <ContactList
+              key={chat.id}
+              onClick={() => setSelectedListChat(chat)}
+            >
               <div>
                 <img
                   src={`http://127.0.0.1:5000/users/get_picture/${chat.id}`}

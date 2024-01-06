@@ -1,6 +1,6 @@
 
 To do 
-- Create Chats based on current Users
+- Block chat creation if currentChat exists
 - WebSockets (send message functionality) 
 
 Completed
@@ -14,3 +14,4 @@ Completed
   -> So when User is logged in, All Chats come up/Profile picture, etc
 - Signup/Login Design
 - Display messages based on sender/receiver
+- Create Chats based on current Users
