@@ -1,13 +1,7 @@
 
 To do 
-- Store Current User information in Local Storage
-  -> So when User is logged in, All Chats come up/Profile picture, etc
-
-- Signup/Login Design
-
 - Create Chats based on current Users
-
-- Display messages based on sender/receiver
+- WebSockets (send message functionality) 
 
 Completed
 - Fix Register frontend function to (if successful) go to login page
@@ -16,3 +10,7 @@ Completed
 -  how to store "authenticated_user" in React App to use info through the App / redirect to login page if not authenticated
 - How to return image from backend static folder to frontend | Where to store
 - Search up how to display signup/login page if (!authenticated_user), and display the WhatsAppWeb page if authenticared_user is True
+- Store Current User information in Local Storage
+  -> So when User is logged in, All Chats come up/Profile picture, etc
+- Signup/Login Design
+- Display messages based on sender/receiver

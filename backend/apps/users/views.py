@@ -19,7 +19,6 @@ def get(user_id):
     user_dict = user.to_dict()
     return jsonify(user=user_dict)
 
-
 @users_bp.route("/register", methods=["POST", "GET"])
 def register():
     data = request.form
@@ -44,7 +43,6 @@ def register():
         return jsonify({"message": "User registered successfully"}), 201
     except:
         return jsonify({"message": "User already exists"}), 500
-
 
 @users_bp.route("/login", methods=["GET", "POST"])
 def login():
@@ -72,7 +70,6 @@ def login():
 @users_bp.route("/logout")
 def logout():
     logout_user()
-
 
 @users_bp.route("/get_picture/<int:user_id>", methods=["GET"])
 def get_user_picture(user_id):

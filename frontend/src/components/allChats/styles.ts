@@ -33,6 +33,7 @@ export const Profile = styled.div`
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 9999px;
+    object-fit: cover;
   }
 `
 

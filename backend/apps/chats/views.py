@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 from sqlalchemy import or_, and_
 from ..models import User, Message
 from ..settings import db_session
+from datetime import datetime
 
 chats_bp = Blueprint("chats", __name__, url_prefix="/chats")
 
@@ -24,7 +25,7 @@ def get_chats_for_user(user_id):
     return jsonify([user.to_dict() for user in users])
     
 
-@chats_bp.route("/get_messages/<int:sender_id>/<int:receiver_id>")
+@chats_bp.route("/get_messages/<int:sender_id>/<int:receiver_id>", methods=["GET"])
 def get_messages_for_chat(sender_id, receiver_id):
     """Queries messages that have been sent with a specific sender and receiver, creating a chat"""
 
@@ -53,3 +54,12 @@ def get_messages_for_chat(sender_id, receiver_id):
         
 
     return jsonify(message_dict_array)
+
+@chats_bp.route("create_chat/<int:sender_id>/<int:receiver_id>", methods=['POST'])
+def create_chat(sender_id, receiver_id):
+    """Empty message between 2 users will create a chat"""
+    message = Message(content='', sender_id=sender_id, receiver_id=receiver_id, timestamp=datetime.now())
+    db_session.add(message) 
+    db_session.commit()
+
+    return jsonify({'message': 'Chat created successfuly'})

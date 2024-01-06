@@ -20,8 +20,10 @@ export const Chat = styled.div<{ is_selected: string }>`
 export const ChatIcon = styled.div`
   img {
     height: 3rem;
+    width: 3rem;
     border: 0;
     border-radius: 9999px;
+    object-fit: cover;
   }
 `
 

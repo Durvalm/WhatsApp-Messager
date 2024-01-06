@@ -19,25 +19,13 @@ import defaultPicture from '../../assets/defaultPicture.png'
 
 export function AllChats() {
   const { authenticatedUser } = useContext(AuthContext)
-  const { chats, createChats } = useContext(ChatsContext)
+  const { chats } = useContext(ChatsContext)
   const [showAddChatForm, setShowAddChatForm] = useState(false)
 
   function handleShowAddForm() {
     showAddChatForm ? setShowAddChatForm(false) : setShowAddChatForm(true)
   }
 
-  // Create Chat function
-  const addChat = (chatName: string) => {
-    const newChat = {
-      id: String(chats.length + 1),
-      name: chatName,
-      email: '',
-      picture_filename: 'https://avatars.githubusercontent.com/u/31549323?v=4',
-      lastMessage: undefined,
-    }
-    setShowAddChatForm(false)
-    createChats(newChat)
-  }
   return (
     <Section>
       {!showAddChatForm ? (
@@ -85,7 +73,7 @@ export function AllChats() {
           )}
         </>
       ) : (
-        <AddChatForm addChat={addChat} handleShowAddForm={handleShowAddForm} />
+        <AddChatForm handleShowAddForm={handleShowAddForm} />
       )}
     </Section>
   )

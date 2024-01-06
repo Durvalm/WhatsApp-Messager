@@ -56,7 +56,7 @@ export function Chat() {
       <Content>
         <div>
           {messages.map((message) => {
-            return (
+            return message.content.length > 0 ? (
               <MessagesContainer
                 key={new Date(message.timestamp).toISOString()}
                 is_sender={
@@ -83,7 +83,7 @@ export function Chat() {
                   </MessageInfo>
                 </Text>
               </MessagesContainer>
-            )
+            ) : null
           })}
         </div>
 
