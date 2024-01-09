@@ -63,7 +63,7 @@ export function AllChats() {
                   name={chat.name}
                   email={chat.email}
                   picture_filename={chat.picture_filename}
-                  lastMessage={chat.lastMessage}
+                  last_message={chat.last_message}
                 />
               ))
           ) : (

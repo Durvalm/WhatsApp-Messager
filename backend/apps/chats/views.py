@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from sqlalchemy import or_, and_, not_
+from sqlalchemy import or_, and_, not_, desc
 from sqlalchemy.orm import aliased
 from ..models import User, Message
 from ..settings import db_session
@@ -15,22 +15,37 @@ def get_chats_for_user(user_id):
     
     # Extract user IDs from query
     user_ids = set()
-    for sender, receiver in chats_query:
+    for chat in chats_query:
+        sender, receiver = chat
         if sender != user_id:
             user_ids.add(sender)
         if receiver != user_id:
             user_ids.add(receiver)
     
+    last_messages_dict = {}
+    for user in user_ids:
+        last_message = get_last_message(user_id, user)
+        last_messages_dict[user] = last_message
+    
     users = User.query.filter(User.id.in_(user_ids)).all()
+    result_list = []
+    for user in users:
+        user.last_message = last_messages_dict[user.id]
+        user_info = user.to_dict()
+        user_info['last_message'] = user.last_message.to_dict() if user.last_message else None
+        result_list.append(user_info)
 
-    return jsonify([user.to_dict() for user in users])
+    sorted_result_list = sorted(result_list, key=lambda x: x['last_message']['timestamp'] if x['last_message'] else '')
+
+    # Return JSON response
+    return jsonify(sorted_result_list)
 
 @chats_bp.route("/get_messages/<int:sender_id>/<int:receiver_id>", methods=["GET"])
 def get_messages_for_chat(sender_id, receiver_id):
     """Queries messages that have been sent with a specific sender and receiver, creating a chat"""
 
     chats_query = (
-        db_session.query(Message.id, Message.content, Message.sender_id, Message.receiver_id, Message.timestamp)
+        db_session.query(Message)
         .filter(
             or_(
                 and_(Message.sender_id == sender_id, Message.receiver_id == receiver_id),
@@ -58,8 +73,19 @@ def get_messages_for_chat(sender_id, receiver_id):
 @chats_bp.route("create_chat/<int:sender_id>/<int:receiver_id>", methods=['POST'])
 def create_chat(sender_id, receiver_id):
     """Empty message between 2 users will create a chat"""
-    message = Message(content='', sender_id=sender_id, receiver_id=receiver_id, timestamp=datetime.now())
+    message = Message(content='', sender_id=sender_id, receiver_id=receiver_id, timestamp=datetime.utcnow())
     db_session.add(message) 
     db_session.commit()
 
     return jsonify({'message': 'Chat created successfuly'})
+
+
+def get_last_message(sender_id, receiver_id):
+    last_message = db_session.query(Message).filter(
+        or_(
+            and_(Message.sender_id == sender_id, Message.receiver_id == receiver_id),
+            and_(Message.sender_id == receiver_id, Message.receiver_id == sender_id)
+        )
+    ).order_by(desc(Message.timestamp)).first()
+
+    return last_message

@@ -12,7 +12,7 @@ export interface ChatType {
   name: string
   email: string
   picture_filename: string
-  lastMessage?: Messages
+  last_message: Messages
 }
 
 export interface SelectedChatType {

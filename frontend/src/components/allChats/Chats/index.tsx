@@ -1,4 +1,4 @@
-import { format, isThisWeek, isToday } from 'date-fns'
+import { isThisWeek, isToday } from 'date-fns'
 import { ChatType, ChatsContext } from '../../../contexts/chatContextTypes'
 import {
   Section,
@@ -17,8 +17,9 @@ export function Chats(chat: ChatType) {
     selectCurrentChat(chat.id)
   }
 
-  // const chatDate = chat.lastMessage ? chat.lastMessage.date : null
-  const chatText = chat.lastMessage ? chat.lastMessage.content : ''
+  const chatDate = chat.last_message ? chat.last_message?.timestamp : null
+  const chatText = chat.last_message ? chat.last_message.content : ''
+  console.log(chatDate)
 
   return (
     <Section>
@@ -35,14 +36,28 @@ export function Chats(chat: ChatType) {
         <ChatInfo>
           <ChatName>
             <span>{chat.name}</span>
-            {/* Used to display last message time */}
-            {/* <span className="time">
-              {isToday(chatDate) // Check if the date is today
-                ? format(chatDate, 'HH:mm') // Display hour if today
-                : isThisWeek(chatDate) // Check if the date is within the current week
-                  ? format(chatDate, 'iii') // Display weekday if this week
-                  : format(chatDate, 'yyyy-MM-dd')}
-            </span> */}
+            {/* Used to display last message time  */}
+            {chatDate ? (
+              <span className="time">
+                {
+                  isToday(new Date(chatDate))
+                    ? new Date(chatDate).toLocaleTimeString('en-US', {
+                        hour12: true,
+                        hour: 'numeric',
+                        minute: 'numeric',
+                      }) // Display hour if today
+                    : isThisWeek(chatDate)
+                      ? new Date(chatDate).toLocaleDateString('en-US', {
+                          weekday: 'short',
+                        }) // Display weekday if this week
+                      : new Date(chatDate).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'numeric',
+                          day: 'numeric',
+                        }) // Display full date otherwise
+                }
+              </span>
+            ) : null}
           </ChatName>
           <ChatMessage>
             <span>{chatText}</span>
