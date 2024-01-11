@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import {
   Section,
   Header,
@@ -21,15 +21,50 @@ import { MdSend } from 'react-icons/md'
 import { ChatsContext } from '../../contexts/chatContextTypes'
 import { EmptyChatContainer } from './EmptyChatContainer'
 import { AuthContext } from '../../contexts/AuthContext'
+import { io, Socket } from 'socket.io-client'
 
 export function Chat() {
   const { currentChat, messages, addNewMessage } = useContext(ChatsContext)
   const { authenticatedUser } = useContext(AuthContext)
 
   const [currentText, setCurrentText] = useState('')
+  const [currSocket, setCurrSocket] = useState<Socket | null>(null)
+
+  useEffect(() => {
+    if (!currSocket) {
+      const socket = io('127.0.0.1:5000', {
+        autoConnect: true,
+        withCredentials: true,
+      })
+
+      setCurrSocket(socket)
+
+      return () => {
+        socket.close()
+      }
+    }
+  }, [setCurrSocket])
+
+  useEffect(() => {
+    const handleNewMessage = (text: string) => {
+      addNewMessage(text)
+    }
+
+    if (currSocket) {
+      currSocket.on('message', handleNewMessage)
+    }
+
+    return () => {
+      if (currSocket) {
+        currSocket.off('message', handleNewMessage)
+      }
+    }
+  }, [currSocket, addNewMessage])
 
   function handleSendMessage() {
-    addNewMessage(currentText)
+    // addNewMessage(currentText)
+    console.log(currSocket)
+    currSocket?.emit('message', currentText)
     setCurrentText('')
   }
 

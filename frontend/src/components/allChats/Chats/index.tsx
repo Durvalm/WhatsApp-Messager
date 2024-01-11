@@ -19,7 +19,6 @@ export function Chats(chat: ChatType) {
 
   const chatDate = chat.last_message ? chat.last_message?.timestamp : null
   const chatText = chat.last_message ? chat.last_message.content : ''
-  console.log(chatDate)
 
   return (
     <Section>

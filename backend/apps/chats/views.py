@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from sqlalchemy import or_, and_, not_, desc
-from sqlalchemy.orm import aliased
+from app import socketio
+from sqlalchemy import or_, and_, desc
 from ..models import User, Message
 from ..settings import db_session
 from datetime import datetime
@@ -89,3 +89,16 @@ def get_last_message(sender_id, receiver_id):
     ).order_by(desc(Message.timestamp)).first()
 
     return last_message
+
+@socketio.on('message')
+def handle_message_sent(json):
+    print("received: ", str(json))
+    socketio.emit('message', json)
+
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')   
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('Client disconnected')   

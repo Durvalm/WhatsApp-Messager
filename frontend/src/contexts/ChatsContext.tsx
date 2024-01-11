@@ -64,6 +64,7 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   return (
     <ChatsContext.Provider
       value={{
+        // socket,
         chats,
         createChats,
         messages,
@@ -71,6 +72,7 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
         selectedChat,
         selectCurrentChat,
         addNewMessage,
+        // handleSetNewSocket,
       }}
     >
       {children}

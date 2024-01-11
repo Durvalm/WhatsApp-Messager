@@ -21,12 +21,14 @@ export interface SelectedChatType {
 
 export interface ChatsContextType {
   chats: ChatType[]
+  // socket: any
   selectedChat?: SelectedChatType
   messages: Messages[]
   currentChat?: ChatType
   createChats: (newChat: ChatType) => void
   selectCurrentChat: (chatId: string) => void
   addNewMessage: (currentText: string) => void
+  // handleSetNewSocket: (newSocket: any) => void
 }
 
 export interface ChatsContextProviderProps {

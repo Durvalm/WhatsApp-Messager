@@ -1,7 +1,6 @@
 
 To do 
 - WebSockets (send message functionality) 
-- Retrieve last message for chats
 
 Completed
 - Fix Register frontend function to (if successful) go to login page
@@ -16,3 +15,4 @@ Completed
 - Display messages based on sender/receiver
 - Create Chats based on current Users
 - Block chat creation if currentChat exists
+- Retrieve last message for chats

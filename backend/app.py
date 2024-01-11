@@ -2,6 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_cors import CORS
+from flask_socketio import SocketIO
 
 from apps.settings import db_session, init_db, Base, SECRET_KEY
 from apps.models import User
@@ -9,6 +10,8 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+
+socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
 bcrypt = Bcrypt(app)
 CORS(app)
 
@@ -31,3 +34,7 @@ def shutdown_session(exception=None):
 @login_manager.user_loader
 def loader_user(user_id):
     return User.query.get(user_id)
+
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True, port=5000)
