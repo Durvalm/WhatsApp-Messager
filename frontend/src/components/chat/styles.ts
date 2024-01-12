@@ -56,12 +56,11 @@ export const Content = styled.div`
 
   display: flex;
   flex-direction: column-reverse;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-top: 0.5rem;
 
   overflow-x: hidden;
   overflow-y: auto;
-  s;
 `
 
 export const MsgIcons = styled.div`

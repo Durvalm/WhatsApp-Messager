@@ -31,7 +31,7 @@ export function Chat() {
   const [currSocket, setCurrSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    if (!currSocket) {
+    if (authenticatedUser) {
       const socket = io('127.0.0.1:5000', {
         autoConnect: true,
         withCredentials: true,
@@ -43,7 +43,7 @@ export function Chat() {
         socket.close()
       }
     }
-  }, [setCurrSocket])
+  }, [authenticatedUser, setCurrSocket])
 
   useEffect(() => {
     const handleNewMessage = (message: Messages) => {

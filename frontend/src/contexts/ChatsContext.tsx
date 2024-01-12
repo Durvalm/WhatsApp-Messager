@@ -64,8 +64,6 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
       chatIndex = chats.findIndex((chat) => chat.id === message.sender_id)
     }
 
-    console.log(chatIndex)
-
     if (chatIndex !== -1) {
       setChats((prevChats) => {
         const updatedChats = [...prevChats]
@@ -76,6 +74,18 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
         })
         return updatedChats
       })
+    } else {
+      if (authenticatedUser?.id === message.receiver_id) {
+        async function fetchUser() {
+          const user = await api.get(`users/get/${message.sender_id}`)
+          const userData = user.data.user
+          setChats((prevChats) => [
+            ...prevChats,
+            { ...userData, last_message: message },
+          ])
+        }
+        fetchUser()
+      }
     }
   }
 
