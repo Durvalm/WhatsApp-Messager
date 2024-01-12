@@ -123,28 +123,27 @@ export function Chat() {
             ) : null
           })}
         </div>
-
-        <MessageBar>
-          <MsgIcons>
-            <BsEmojiSmile size={24} />
-            <AiOutlinePlus size={24} />
-          </MsgIcons>
-
-          <Input>
-            <input
-              type="text"
-              placeholder="Type a message"
-              value={currentText}
-              onChange={(e) => setCurrentText(e.target.value)}
-            />
-          </Input>
-          {currentText ? (
-            <MdSend size={24} color={'#54656f'} onClick={handleSendMessage} />
-          ) : (
-            <BsMicFill size={24} color={'#54656f'} />
-          )}
-        </MessageBar>
       </Content>
+      <MessageBar>
+        <MsgIcons>
+          <BsEmojiSmile size={24} />
+          <AiOutlinePlus size={24} />
+        </MsgIcons>
+
+        <Input>
+          <input
+            type="text"
+            placeholder="Type a message"
+            value={currentText}
+            onChange={(e) => setCurrentText(e.target.value)}
+          />
+        </Input>
+        {currentText ? (
+          <MdSend size={24} color={'#54656f'} onClick={handleSendMessage} />
+        ) : (
+          <BsMicFill size={24} color={'#54656f'} />
+        )}
+      </MessageBar>
     </Section>
   )
 }

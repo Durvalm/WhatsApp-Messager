@@ -1,8 +1,7 @@
 
 To do 
-- Fix added message not to go to wrong chat, but stil update lastMessage of the right chat
-- Fix Chat css to scroll
-
+-
+-
 
 Completed
 - Fix Register frontend function to (if successful) go to login page
@@ -20,5 +19,8 @@ Completed
 - Retrieve last message for chats
 - WebSockets (send message functionality) 
 - Update Chats being texted to go up
+- Fix added message not to go to wrong chat, but stil update lastMessage of the right chat
+- Fix last_message if user is not in no chats
+- Fix Chat css to scroll
 
 

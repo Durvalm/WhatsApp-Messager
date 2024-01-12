@@ -49,15 +49,19 @@ export const Profile = styled.div`
 `
 
 export const Content = styled.div`
-  height: calc(100vh - 3.5rem);
+  height: calc(100vh - 3.5rem - 3.7rem);
   border-left: 0.5px solid #e9edef;
   background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
   background-size: 50%;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
   padding-top: 0.5rem;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  s;
 `
 
 export const MsgIcons = styled.div`

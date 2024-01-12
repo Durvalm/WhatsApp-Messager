@@ -12,8 +12,8 @@ class User(UserMixin, Base):
     name = Column(String(50), unique=False)
     picture_filename = Column(String(255), unique=False)
 
-    messages_sent = relationship('Message', foreign_keys='Message.sender_id', backref='sender', lazy=True)
-    messages_received = relationship('Message', foreign_keys='Message.receiver_id', backref='receiver', lazy=True)
+    messages_sent = relationship('Message', foreign_keys='Message.sender_id', backref='sender', lazy=True, cascade='all, delete-orphan')
+    messages_received = relationship('Message', foreign_keys='Message.receiver_id', backref='receiver', lazy=True, cascade='all, delete-orphan')
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns if column.name != 'password'}
@@ -25,9 +25,9 @@ class Message(Base):
     __tablename__ = 'messages'
     id = Column(Integer, primary_key=True)
     content = Column(String(255), unique=False)
-    sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    receiver_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    timestamp = Column(DateTime(timezone=True), server_default=func.now())
+    sender_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    receiver_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
