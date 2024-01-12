@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   Section,
   Header,
@@ -18,7 +18,7 @@ import { AiOutlineSearch, AiOutlineMore, AiOutlinePlus } from 'react-icons/ai'
 import { BsEmojiSmile, BsMicFill } from 'react-icons/bs'
 import { MdSend } from 'react-icons/md'
 
-import { ChatsContext } from '../../contexts/chatContextTypes'
+import { ChatsContext, Messages } from '../../contexts/chatContextTypes'
 import { EmptyChatContainer } from './EmptyChatContainer'
 import { AuthContext } from '../../contexts/AuthContext'
 import { io, Socket } from 'socket.io-client'
@@ -46,8 +46,8 @@ export function Chat() {
   }, [setCurrSocket])
 
   useEffect(() => {
-    const handleNewMessage = (text: string) => {
-      addNewMessage(text)
+    const handleNewMessage = (message: Messages) => {
+      addNewMessage(message)
     }
 
     if (currSocket) {
@@ -62,9 +62,11 @@ export function Chat() {
   }, [currSocket, addNewMessage])
 
   function handleSendMessage() {
-    // addNewMessage(currentText)
-    console.log(currSocket)
-    currSocket?.emit('message', currentText)
+    currSocket?.emit('message', {
+      content: currentText,
+      sender_id: authenticatedUser?.id,
+      receiver_id: currentChat?.id,
+    })
     setCurrentText('')
   }
 

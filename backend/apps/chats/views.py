@@ -90,10 +90,18 @@ def get_last_message(sender_id, receiver_id):
 
     return last_message
 
+def create_message(sender_id, receiver_id, content):
+    message = Message(content=content, sender_id=sender_id, receiver_id=receiver_id, timestamp=datetime.utcnow())
+    db_session.add(message) 
+    db_session.commit()
+
+    return message.to_dict()
+
 @socketio.on('message')
-def handle_message_sent(json):
-    print("received: ", str(json))
-    socketio.emit('message', json)
+def handle_message_sent(data):
+    message = create_message(data['sender_id'], data['receiver_id'], data['content'])
+    message['timestamp'] = message['timestamp'].strftime('%Y-%m-%d %H:%M:%S UTC')
+    socketio.emit('message', message)
 
 @socketio.on('connect')
 def handle_connect():

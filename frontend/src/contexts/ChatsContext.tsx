@@ -43,14 +43,24 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
     fetchPopulateMessagesForChat()
   }, [selectedChat, authenticatedUser])
 
-  function addNewMessage(currentText: string) {
-    const newMessage = {
-      content: currentText,
-      sender_id: authenticatedUser?.id,
-      receiver_id: selectedChat?.id,
-      timestamp: new Date(),
+  function addNewMessage(message: Messages) {
+    setMessages((state) => [...state, message])
+    updateChats(message)
+  }
+
+  function updateChats(message: Messages) {
+    const chatIndex = chats.findIndex((chat) => chat.id === message.receiver_id)
+    if (chatIndex !== -1) {
+      setChats((prevChats) => {
+        const updatedChats = [...prevChats]
+        const movedChat = updatedChats.splice(chatIndex, 1)[0]
+        updatedChats.push({
+          ...movedChat,
+          last_message: message,
+        })
+        return updatedChats
+      })
     }
-    setMessages((state) => [...state, newMessage])
   }
 
   function createChats(newChat: ChatType) {
@@ -64,7 +74,6 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   return (
     <ChatsContext.Provider
       value={{
-        // socket,
         chats,
         createChats,
         messages,
@@ -72,7 +81,6 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
         selectedChat,
         selectCurrentChat,
         addNewMessage,
-        // handleSetNewSocket,
       }}
     >
       {children}

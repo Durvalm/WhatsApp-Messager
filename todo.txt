@@ -1,6 +1,8 @@
 
 To do 
-- WebSockets (send message functionality) 
+- Update Chats being texted to go up
+- Fix Chat css to scroll
+
 
 Completed
 - Fix Register frontend function to (if successful) go to login page
@@ -16,3 +18,4 @@ Completed
 - Create Chats based on current Users
 - Block chat creation if currentChat exists
 - Retrieve last message for chats
+- WebSockets (send message functionality) 
