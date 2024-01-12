@@ -44,12 +44,24 @@ export function ChatsContextProvider({ children }: ChatsContextProviderProps) {
   }, [selectedChat, authenticatedUser])
 
   function addNewMessage(message: Messages) {
-    setMessages((state) => [...state, message])
+    const currentOpenedChat = messages[0]
+    if (
+      message.sender_id === currentOpenedChat.sender_id ||
+      message.sender_id === currentOpenedChat.receiver_id
+    ) {
+      setMessages((state) => [...state, message])
+    }
     updateChats(message)
   }
 
   function updateChats(message: Messages) {
-    const chatIndex = chats.findIndex((chat) => chat.id === message.receiver_id)
+    let chatIndex = -1
+    if (message.sender_id === authenticatedUser?.id) {
+      chatIndex = chats.findIndex((chat) => chat.id === message.receiver_id)
+    } else if (message.receiver_id === authenticatedUser?.id) {
+      chatIndex = chats.findIndex((chat) => chat.id === message.sender_id)
+    }
+
     if (chatIndex !== -1) {
       setChats((prevChats) => {
         const updatedChats = [...prevChats]
