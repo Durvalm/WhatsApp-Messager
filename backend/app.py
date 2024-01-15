@@ -11,7 +11,7 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 
-socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
+socketio = SocketIO(app, cors_allowed_origins="*")
 bcrypt = Bcrypt(app)
 CORS(app)
 
